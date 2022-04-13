@@ -29,13 +29,17 @@
             // Tutte le rotte che sono dentro api.php iniziano per /api 
             axios.get('/api/posts/' + slug)
             .then((response) => {
-                    this.post = response.data.result;
+                    console.log(response)
+                    if(response.data.success == true){
+                        this.post = response.data.result;
+                    }else{
+                        this.$router.push({name: 'not-found'})
+                    }
             });
            }
        },
        created(){
            this.getPost();
-           console.log(this.getPost)
        }
     };
 </script>
