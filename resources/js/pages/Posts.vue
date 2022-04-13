@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
             <h1>Elenco dei Post</h1>
             <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="pagination justify-content-center mb-5">
                 <li class="page-item" :class="(currentPage == 1) ? 'disabled' : '' " ><span @click="getPosts(currentPage - 1)" class="page-link" >Previous</span></li>
                 <li class="page-item" :class="(currentPage == lastPage) ? 'disabled' : '' "><span @click="getPosts(currentPage + 1)" class="page-link">Next</span></li>
             </ul>
@@ -13,7 +13,7 @@
                     <div class="card-body">
                     <h5 class="card-title">{{post.title}}</h5>
                         <p class="card-text text-truncate">{{post.content}}</p>
-                        <a class="btn btn-primary" href="#"> Vedi Post</a>
+                        <router-link :to="{name:'post', params: {slug: post.slug}}" class="btn btn-primary" > Vedi Post</router-link>
                     </div>
                 </div>
             </div>

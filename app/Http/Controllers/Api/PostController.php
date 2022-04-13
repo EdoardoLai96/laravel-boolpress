@@ -19,7 +19,7 @@ class PostController extends Controller
     {
         //chiamo con with per far risolvere a laravel la relazione tra post e category in fase di chiamata axios
 
-        $posts = Post::with(['category'])->paginate(2);
+        $posts = Post::with(['category','tags'])->paginate(2);
 
         
         return response()->json(
@@ -37,7 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -57,9 +57,25 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
+
+        if ($post) {
+            return response()->json(
+                [
+                    'result' => $post,
+                    'success' => true
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'result' => 'Nessun risultato trovato',
+                    'success' => false
+                ]
+            );
+        }
     }
 
     /**

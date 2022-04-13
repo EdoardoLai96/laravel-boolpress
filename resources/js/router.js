@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 
  import Home from './pages/Home';
  import Posts from './pages/Posts';
+ import Post from '../js/partials/Post';
  
  const router = new VueRouter({
      mode: 'history',
@@ -19,6 +20,11 @@ import VueRouter from 'vue-router';
              path: '/posts',
              name: 'posts',
              component: Posts
+            },
+            {
+             path: '/posts/:slug',
+             name: 'post',
+             component: Post
             },
         ]
     });
