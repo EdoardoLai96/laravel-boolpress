@@ -56,11 +56,15 @@ class PostController extends Controller
             'content'=>'required|min:20',
             'category_id'=>'nullable|exists:categories,id',
             'tags'=>'nullable|exists:tags,id',
+            'image'=>'nullable|image|max:2048'
 
 
         ]);
 
-        $img_path = Storage::put('uploads', $data['image']);
+        if (isset($data['image'])) {
+            $img_path = Storage::put('uploads', $data['image']);
+            $data['cover'] = $img_path;
+        }
 
         $slug=Str::slug($data['title']);
 
@@ -182,6 +186,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->cover) {
+            Storage::delete($post->cover);
+        }
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
