@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-    <form class="container" action="{{route('admin.posts.store')}}" method="POST">
+    <form class="container" action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -17,7 +17,12 @@
           </select>
       </div>
 
-        <div class="mb-3">
+
+          <div class="form-group">
+            <label for="image">Immagine di copertina</label>
+            <input class="form-control" type="file" name="image" id="image">
+          </div>
+          <div class="mb-3">
             <label for="title" class="form-label">Titolo:</label>
             <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}">
           </div>
@@ -34,7 +39,7 @@
           @endforeach 
             
             
-            <div class="mb-3">
+          <div class="mb-3">
             <button type="submit" class="btn btn-primary my-3">Crea Nuovo Post</button>
           </div>
     </form>
