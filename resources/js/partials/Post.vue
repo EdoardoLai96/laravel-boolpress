@@ -3,6 +3,7 @@
             <div class="card-header">
                 <h1>{{post.category.name}}</h1>
             </div>
+             <img class="card-img-top" :src="post.cover" :alt="post.title">
             <div class="card-body">
             <h5 class="card-title">{{post.name}}</h5>
             <p class="card-text">{{post.content}}</p>

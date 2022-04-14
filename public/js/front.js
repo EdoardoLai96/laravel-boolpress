@@ -2031,6 +2031,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Posts',
   components: {},
@@ -2076,6 +2077,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -3510,6 +3512,11 @@ var render = function () {
       _vm._l(_vm.posts, function (post) {
         return _c("div", { key: post.id, staticClass: "col-3" }, [
           _c("div", { staticClass: "card" }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: { src: post.cover, alt: post.title },
+            }),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "card-body" },
@@ -3569,6 +3576,11 @@ var render = function () {
         _c("div", { staticClass: "card-header" }, [
           _c("h1", [_vm._v(_vm._s(_vm.post.category.name))]),
         ]),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "card-img-top",
+          attrs: { src: _vm.post.cover, alt: _vm.post.title },
+        }),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("h5", { staticClass: "card-title" }, [

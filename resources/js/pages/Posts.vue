@@ -10,6 +10,7 @@
         <div class="row justify-content-center">
             <div v-for="post in posts" :key="post.id" class="col-3">
                 <div class="card">
+                 <img class="card-img-top" :src="post.cover" :alt="post.title">
                     <div class="card-body">
                     <h5 class="card-title">{{post.title}}</h5>
                         <p class="card-text text-truncate">{{post.content}}</p>
