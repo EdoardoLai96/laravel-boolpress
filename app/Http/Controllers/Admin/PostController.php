@@ -7,6 +7,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -54,9 +55,12 @@ class PostController extends Controller
             'title'=>'required',
             'content'=>'required|min:20',
             'category_id'=>'nullable|exists:categories,id',
-            'tags'=>'nullable|exists:tags,id'
+            'tags'=>'nullable|exists:tags,id',
+
 
         ]);
+
+        $img_path = Storage::put('uploads', $data['image']);
 
         $slug=Str::slug($data['title']);
 
@@ -77,6 +81,7 @@ class PostController extends Controller
         //in questa maniera posso prendere il valore di slug da 'title', anche se il valore slug non è presente nel form
        
         $data['slug'] = $slug;
+        $data['image'] = $img_path;
 
         $post = new Post;
 
