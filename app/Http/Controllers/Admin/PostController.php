@@ -21,9 +21,9 @@ class PostController extends Controller
     {
         $posts = Post::all();
         $categories = Category::all();
-        
 
-        return view('admin.posts.index',compact('posts','categories'));
+
+        return view('admin.posts.index', compact('posts', 'categories'));
     }
 
     /**
@@ -36,8 +36,7 @@ class PostController extends Controller
         $categories = Category::all();
         $posts = Post::all();
         $tags = Tag::all();
-        return view('admin.posts.create',compact('categories','posts','tags'));
-
+        return view('admin.posts.create', compact('categories', 'posts', 'tags'));
     }
 
     /**
@@ -52,21 +51,22 @@ class PostController extends Controller
 
         $request->validate(
             [
-            'title'=>'required',
-            'content'=>'required|min:20',
-            'category_id'=>'nullable|exists:categories,id',
-            'tags'=>'nullable|exists:tags,id',
-            'image'=>'nullable|image|max:2048'
+                'title' => 'required',
+                'content' => 'required|min:20',
+                'category_id' => 'nullable|exists:categories,id',
+                'tags' => 'nullable|exists:tags,id',
+                'image' => 'nullable|image|max:2048'
 
 
-        ]);
+            ]
+        );
 
         if (isset($data['image'])) {
             $img_path = Storage::put('uploads', $data['image']);
             $data['cover'] = $img_path;
         }
 
-        $slug=Str::slug($data['title']);
+        $slug = Str::slug($data['title']);
 
         $counter = 1;
 
@@ -83,7 +83,7 @@ class PostController extends Controller
 
         //sto aggiungendo a $data (che è un array associativo), un nuovo elemento chiave/valore con la sintassi sotto,
         //in questa maniera posso prendere il valore di slug da 'title', anche se il valore slug non è presente nel form
-       
+
         $data['slug'] = $slug;
         $data['image'] = $img_path;
 
@@ -107,7 +107,7 @@ class PostController extends Controller
     public function show(Post $post, Category $category)
     {
 
-        return view('admin.posts.show',compact('post','category'));
+        return view('admin.posts.show', compact('post', 'category'));
     }
 
     /**
@@ -120,7 +120,7 @@ class PostController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.edit', compact('post','categories','tags'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -136,14 +136,26 @@ class PostController extends Controller
 
         $request->validate(
             [
-            'title'=>'required',
-            'content'=>'required|min:20',
-            'category_id'=>'nullable|exists:categories,id',
-            'tags'=>'nullable|exists:tags,id'
+                'title' => 'required',
+                'content' => 'required|min:20',
+                'category_id' => 'nullable|exists:categories,id',
+                'tags' => 'nullable|exists:tags,id'
 
-        ]);
+            ]
+        );
 
-        $slug=Str::slug($data['title']);
+        $slug = Str::slug($data['title']);
+
+
+        if (isset($data['image'])) {
+
+            if ($post->cover) {
+                Storage::delete($post->cover);
+            }
+
+            $img_path = Storage::put('post_covers', $data['image']);
+            $data['cover'] = $img_path;
+        }
 
 
         //                    **PER IL CICLO WHILE**
@@ -166,7 +178,7 @@ class PostController extends Controller
 
         //sto aggiungendo a $data (che è un array associativo), un nuovo elemento chiave/valore con la sintassi sotto,
         //in questa maniera posso prendere il valore di slug da 'title', anche se il valore slug non è presente nel form
-       
+
         $data['slug'] = $slug;
 
 
