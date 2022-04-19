@@ -19,11 +19,17 @@
        </div>
 
        @if($post->cover)
-        {{-- <div class="form-group"> --}}
+        <div class="form-group">
             <label for="image">Immagine di copertina</label>
-            <input class="form-control" type="file" name="image" id="image">
-        {{-- </div> --}}
+            <img class="img-thumbnail" src="{{asset('storage/' . $post->cover)}}" alt="{{$post->title}}">
+        </div>
         @endif
+
+
+        <div class="form-group">
+            <label for="image">Cambia immagine di copertina</label>
+            <input class="form-control" type="file" name="image" id="image">
+        </div>
 
         <div class="mb-3">
             <label for="title" class="form-label">Titolo:</label>
