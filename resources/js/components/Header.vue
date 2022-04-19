@@ -11,6 +11,9 @@
                     <li class="nav-item">
                         <router-link :to="{name:'posts'}" class="nav-link" aria-current="page" href="#">Posts</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link :to="{name:'contact'}" class="nav-link" aria-current="page" href="#">Contattaci</router-link>
+                    </li>
                   
                 </ul>
                 </div>
