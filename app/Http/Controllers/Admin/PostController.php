@@ -147,6 +147,8 @@ class PostController extends Controller
         $slug = Str::slug($data['title']);
 
 
+        // Caso in cui sto cambiando un immagine della edit 
+
         if (isset($data['image'])) {
 
             if ($post->cover) {
@@ -186,6 +188,14 @@ class PostController extends Controller
         $post->save();
 
         $post->tags()->sync($data['tags']);
+
+
+        //Caso in cui il post non abbia tags
+
+        if (isset($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        }
+
 
         return redirect()->route('admin.posts.index');
     }
