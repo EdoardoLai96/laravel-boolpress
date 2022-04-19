@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/posts','Api\PostController');
+Route::resource('/posts', 'Api\PostController');
+
+Route::post('/contacts', 'Api\ContactController@store');
