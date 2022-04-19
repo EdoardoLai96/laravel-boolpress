@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-    <form class="container" action="{{route('admin.posts.update',$post->id)}}" method="POST">
+    <form class="container" action="{{route('admin.posts.update',$post->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -17,6 +17,14 @@
 
           </select>
        </div>
+
+       @if($post->cover)
+        {{-- <div class="form-group"> --}}
+            <label for="image">Immagine di copertina</label>
+            <input class="form-control" type="file" name="image" id="image">
+        {{-- </div> --}}
+        @endif
+
         <div class="mb-3">
             <label for="title" class="form-label">Titolo:</label>
             <input type="text" class="form-control" id="title" name="title" value="{{old('title', $post->title)}}">

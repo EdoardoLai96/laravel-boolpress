@@ -85,7 +85,7 @@ class PostController extends Controller
         //in questa maniera posso prendere il valore di slug da 'title', anche se il valore slug non è presente nel form
 
         $data['slug'] = $slug;
-        $data['image'] = $img_path;
+        // $data['image'] = $img_path;
 
         $post = new Post;
 
@@ -93,7 +93,10 @@ class PostController extends Controller
         $post->save();
 
 
-        $post->tags()->sync($data['tags']);
+        if (isset($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        }
+
 
         return redirect()->route('admin.posts.index');
     }
@@ -139,7 +142,9 @@ class PostController extends Controller
                 'title' => 'required',
                 'content' => 'required|min:20',
                 'category_id' => 'nullable|exists:categories,id',
-                'tags' => 'nullable|exists:tags,id'
+                'tags' => 'nullable|exists:tags,id',
+                'image' => 'nullable|image|max:2048'
+
 
             ]
         );
@@ -155,7 +160,7 @@ class PostController extends Controller
                 Storage::delete($post->cover);
             }
 
-            $img_path = Storage::put('post_covers', $data['image']);
+            $img_path = Storage::put('uploads', $data['image']);
             $data['cover'] = $img_path;
         }
 
@@ -187,7 +192,6 @@ class PostController extends Controller
         $post->update($data);
         $post->save();
 
-        $post->tags()->sync($data['tags']);
 
 
         //Caso in cui il post non abbia tags
