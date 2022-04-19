@@ -1,4 +1,6 @@
+
 import Vue from 'vue';
+
 
 import VueRouter from 'vue-router';
 
@@ -8,6 +10,7 @@ import VueRouter from 'vue-router';
  import Posts from './pages/Posts';
  import Post from '../js/partials/Post';
  import NotFound from './pages/NotFound';
+ import Contact from './pages/Contact';
  
  const router = new VueRouter({
      mode: 'history',
@@ -31,6 +34,11 @@ import VueRouter from 'vue-router';
                 path: '/:pathMatch(.*)*',
                 name: 'not-found',
                 component: NotFound
+            },
+            {
+                path: '/contacts',
+                name: 'contact',
+                component: Contact
             }
         ]
     });
